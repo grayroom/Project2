@@ -3,9 +3,11 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <time.h>
+#include <memory.h>
 
 struct stat stat1, stat2;
-struct tm *time1, *time2;
+struct tm real_time1, real_time2;
+struct tm *time1 = &real_time1, *time2 = &real_time2;
 
 void filestat1();
 void filestat2();
@@ -43,13 +45,13 @@ void filestat2()
 // 파일 1의 시간 정보를 가져오는 함수 작성
 void filetime1()
 {
-    time1 = localtime(&stat1.st_mtime);
+    memcpy(time1, localtime(&stat1.st_mtime), sizeof(struct tm));
 }
 
 // 파일 2의 시간 정보를 가져오는 함수 작성
 void filetime2()
 {
-    time2 = localtime(&stat2.st_mtime);
+    memcpy(time2, localtime(&stat2.st_mtime), sizeof(struct tm));
 }
 
 // 두 개의 파일 크기를 비교하는 함수 작성
@@ -80,20 +82,26 @@ void blockcmp()
 void datecmp()
 {
     printf("date compare\n");
-    if(time1->tm_mon < time2->tm_mon){
+    if (time1->tm_mon < time2->tm_mon)
+    {
         printf("text1 is early\n\n");
     }
-    else if(time1->tm_mon > time2->tm_mon){
+    else if (time1->tm_mon > time2->tm_mon)
+    {
         printf("text2 is early\n\n");
     }
-    else{
-        if(time1->tm_mday < time2->tm_mday){
+    else
+    {
+        if (time1->tm_mday < time2->tm_mday)
+        {
             printf("text1 is early\n\n");
         }
-        else if(time1->tm_mday > time2->tm_mday){
+        else if (time1->tm_mday > time2->tm_mday)
+        {
             printf("text2 is early\n\n");
         }
-        else{
+        else
+        {
             printf("same time\n\n");
         }
     }
@@ -103,22 +111,27 @@ void datecmp()
 void timecmp()
 {
     printf("time compare\n");
-    if(time1->tm_hour < time2->tm_hour){
+    if (time1->tm_hour < time2->tm_hour)
+    {
         printf("text1 is early\n\n");
     }
-    else if(time1->tm_hour > time2->tm_hour){
+    else if (time1->tm_hour > time2->tm_hour)
+    {
         printf("text2 is early\n\n");
     }
-    else{
-        if(time1->tm_min < time2->tm_min){
+    else
+    {
+        if (time1->tm_min < time2->tm_min)
+        {
             printf("text1 is early\n\n");
         }
-        else if(time1->tm_min > time2->tm_min){
+        else if (time1->tm_min > time2->tm_min)
+        {
             printf("text2 is early\n\n");
         }
-        else{
+        else
+        {
             printf("same time\n\n");
         }
     }
 }
-
