@@ -103,17 +103,17 @@ void datecmp()
 void timecmp()
 {
     printf("time compare\n");
-    if(time1.tm_hour < time2.tm_hour){
+    if(time1->tm_hour < time2->tm_hour){
         printf("text1 is early\n\n");
     }
-    else if(time1.tm_hour > time2.tm_hour){
+    else if(time1->tm_hour > time2->tm_hour){
         printf("text2 is early\n\n");
     }
     else{
-        if(time1.tm_min < time2.tm_min){
+        if(time1->tm_min < time2->tm_min){
             printf("text1 is early\n\n");
         }
-        else if(time1.tm_min > time2.tm_min){
+        else if(time1->tm_min > time2->tm_min){
             printf("text2 is early\n\n");
         }
         else{
